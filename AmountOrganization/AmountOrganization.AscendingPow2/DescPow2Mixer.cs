@@ -26,7 +26,24 @@ namespace AmountOrganization.DescPow2
             var denominations = new HashSet<ulong>();
             for (int i = 0; i < int.MaxValue; i++)
             {
-                var denom = (ulong)Math.Pow(10, i);
+                var denom = (ulong)Math.Pow(3, i);
+
+                if (denom < smallestInclusive)
+                {
+                    continue;
+                }
+
+                if (denom > maxSatoshis)
+                {
+                    break;
+                }
+
+                denominations.Add(denom);
+            }
+
+            for (int i = 0; i < int.MaxValue; i++)
+            {
+                var denom = (ulong)Math.Pow(3, i) * 2;
 
                 if (denom < smallestInclusive)
                 {

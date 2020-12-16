@@ -146,6 +146,27 @@ namespace System
                 return Convert.ToDouble(source.ElementAt(midpoint));
         }
 
+        public static double StdDevP(this IEnumerable<decimal> source)
+        {
+            return StdDevLogic(source, 0);
+        }
+
+        public static double StdDev(this IEnumerable<decimal> source)
+        {
+            return StdDevLogic(source, 1);
+        }
+
+        private static double StdDevLogic(this IEnumerable<decimal> source, int buffer = 1)
+        {
+            if (source == null)
+            { throw new ArgumentNullException("source"); }
+
+            var data = source.ToList();
+            var average = data.Average();
+            var differences = data.Select(u => Math.Pow(average - u, 2.0)).ToList();
+            return Math.Sqrt(differences.Sum() / (differences.Count() - buffer));
+        }
+
         public static IEnumerable<IEnumerable<T>> Batch<T>(
            this IEnumerable<T> source, int size)
         {
