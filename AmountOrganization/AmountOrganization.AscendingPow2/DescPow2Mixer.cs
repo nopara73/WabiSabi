@@ -26,7 +26,7 @@ namespace AmountOrganization.DescPow2
             var denominations = new HashSet<ulong>();
             for (int i = 0; i < int.MaxValue; i++)
             {
-                var denom = (ulong)Math.Pow(2, i);
+                var denom = (ulong)Math.Pow(10, i);
 
                 if (denom < smallestInclusive)
                 {
@@ -92,7 +92,7 @@ namespace AmountOrganization.DescPow2
                     break;
                 }
 
-                if (denomPlusFee <= remaining)
+                while (denomPlusFee <= remaining)
                 {
                     yield return denomPlusFee;
                     remaining -= denomPlusFee;
@@ -112,7 +112,7 @@ namespace AmountOrganization.DescPow2
             else
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.WriteLine($"WARNING! Dust happened: {remaining} sats");
+                //Console.WriteLine($"WARNING! Dust happened: {remaining} sats");
                 Console.ForegroundColor = ConsoleColor.Gray;
             }
         }
